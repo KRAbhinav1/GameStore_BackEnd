@@ -17,6 +17,7 @@ server.use(
     credentials: true,
   })
 );
+
 server.use(express.json());
 server.use(cookieParser());
 server.use(router);

@@ -15,17 +15,17 @@ const gameSchema = new mongoose.Schema(
       required: true,
     },
     rate: {
-      type: String,
+      type: Number,
       required: true,
     },
     category: {
       type: String,
       required: true,
     },
-    userId:{
+    userId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'users'
-    }
+      ref: "users",
+    },
   },
   {
     timestamps: true,

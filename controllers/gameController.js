@@ -1,11 +1,10 @@
 import games from "../models/gameModel.js";
 
-export const addGame = async (req, res) => {
   //Add game
+export const addGame = async (req, res) => {
   const userId = req.user._id;
   const { name, desc, rate, category } = req.body;
   const img = req.file.filename;
-  
 
   try {
     if (!name || !desc || !rate || !category || !img || !userId) {
@@ -18,9 +17,8 @@ export const addGame = async (req, res) => {
       img,
       rate,
       category,
-      userId,  
+      userId,
     });
-
     await newgame.save();
     res.status(201).send(newgame);
   } catch (error) {
@@ -51,3 +49,43 @@ export const getPublisherGames = async (req, res) => {
   }
 };
 
+// edit game
+export const editGame = async (req, res) => {
+  const id = req.params.id;
+  const { name, desc, rate, category, img } = req.body;
+  const userId = req.user._id;
+  const uploadImg = req.file ? req.file.filename : img;
+  try {
+    if (!name || !desc || !rate || !category || !uploadImg) {
+      return res.status(400).send({ message: "All fields are required" });
+    }
+    const updatedGame = await games.findByIdAndUpdate(
+      id,
+      {
+        name,
+        desc,
+        img: uploadImg,
+        rate,
+        category,
+        userId,
+      },
+      { new: true }
+    );
+    res.status(201).send(updatedGame);
+  } catch (error) {
+    res.status(500).send({ message: "Internal server error" });
+    console.log(error);
+  }
+};
+
+// delete game
+export const deleteGame = async (req, res) => {
+  const id = req.params.id;
+  try {
+    await games.findOneAndDelete(id);
+    res.status(200).send({ message: "Game deleted" });
+  } catch (error) {
+    res.status(500).send({ message: "Internal server error" });
+    console.log(error);
+  }
+};

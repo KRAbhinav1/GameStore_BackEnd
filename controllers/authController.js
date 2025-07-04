@@ -82,7 +82,7 @@ export const logout = (req, res) => {
     });
     res.status(200).send({ message: "Logged out successfully" });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.status(500).send({ message: "Internal Server Error" });
   }
 };
@@ -94,5 +94,32 @@ export const checkAuth = async (req, res) => {
   } catch (error) {
     res.status(500).send({ message: "Interval Server Error" });
     console.log(error);
+  }
+};
+
+// Google signin
+export const googleSignin = async (req, res) => {
+  const { name, email } = req.body;
+
+  try {
+    if (!name || !email) {
+      return res.status(406).send({ message: "All fields are necessary!!" });
+    }
+
+    const existingUser = await users.findOne({ email });
+    if (!existingUser) {
+      const newUser = new users({ name, email , password: '' });
+      const saved = await newUser.save();
+          generateToken(newUser._id, res);
+         return res.status(200).send(newUser)
+
+    }
+    generateToken(existingUser._id, res);
+       res.status(200).send(existingUser)
+
+  } catch (error) {
+    res.status(500).send({ message: "Interval Server Error" });
+    console.log(error);
+    
   }
 };
