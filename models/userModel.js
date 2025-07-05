@@ -15,13 +15,10 @@ const userSchema = new mongoose.Schema(
     },
     role: {
       type: String,
-      enum: ['user','publisher','admin'],
+      enum: ["user", "publisher", "admin"],
       default: "user",
       required: true,
     },
-    // phno: {
-    //   type: String,
-    // },
   },
   {
     timestamps: true,
@@ -30,7 +27,4 @@ const userSchema = new mongoose.Schema(
 
 const users = mongoose.model("users", userSchema);
 
-export default  users;
-
-
-
+export default users;

@@ -95,4 +95,3 @@ export const adminGetOrder = async (req, res) => {
     console.log(error);
   }
 };
-

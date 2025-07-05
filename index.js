@@ -13,16 +13,17 @@ const server = express();
 
 server.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "https://game-store-front-end-tlum.vercel.app",
     credentials: true,
   })
 );
+app.options('*', cors());
 
 server.use(express.json());
 server.use(cookieParser());
 server.use(router);
 server.use("/uploads", express.static("./uploads"));
-
+https://game-store-front-end-tlum.vercel.app
 const port = 4000 || process.env.PORT;
 
 server.listen(port, () => {
