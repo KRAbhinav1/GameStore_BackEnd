@@ -15,6 +15,7 @@ server.use(
   cors({
     origin: "https://game-store-front-end-tlum.vercel.app",
     credentials: true,
+    exposedHeaders: ["Set-Cookie"],
   })
 );
 
