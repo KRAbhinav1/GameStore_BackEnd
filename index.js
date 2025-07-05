@@ -17,7 +17,6 @@ server.use(
     credentials: true,
   })
 );
-server.options("*", cors());
 
 server.use(express.json());
 server.use(cookieParser());
